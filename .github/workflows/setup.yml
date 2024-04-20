@@ -11,6 +11,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v2
+
       - name: Setup
         uses: ./.github/workflows/setup.yml
 
