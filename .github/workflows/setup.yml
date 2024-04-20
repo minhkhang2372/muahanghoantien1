@@ -1,26 +1,30 @@
-name: CI
+name: Run Telegram Bot
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches:
+      - main  # Thay 'main' bằng tên nhánh chính của bạn nếu cần
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout mã nguồn
+      - name: Checkout Repository
         uses: actions/checkout@v2
 
-      - name: Cài đặt Python
+      - name: Set up Python 3.8
         uses: actions/setup-python@v2
         with:
-          python-version: '3.x' # Chỉ định phiên bản Python bạn đang sử dụng
+          python-version: 3.8
 
-      - name: Cài đặt các phụ thuộc
-        run: pip install -r requirements.txt
+      - name: Install Dependencies
+        run: |
+          pip install python-telegram-bot requests
 
-      - name: Chạy script Python
-        run: python muahanghoantien1/lsg.py
+      - name: Run Telegram Bot
+        run: |
+          python main.py  # Thay 'main.py' bằng tên file của bạn
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          # Thêm các biến môi trường khác nếu cần thiết
