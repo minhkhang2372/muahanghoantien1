@@ -24,7 +24,7 @@ jobs:
 
       - name: Run Telegram Bot 1
         run: |
-          python bot1.py  # Thay 'bot1.py' bằng tên file của bot 1 của bạn
+          python main.py  # Thay 'bot1.py' bằng tên file của bot 1 của bạn
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           # Thêm các biến môi trường khác nếu cần thiết
@@ -47,7 +47,7 @@ jobs:
 
       - name: Run Telegram Bot 2
         run: |
-          python bot2.py  # Thay 'bot2.py' bằng tên file của bot 2 của bạn
+          python quayxu.py  # Thay 'bot2.py' bằng tên file của bot 2 của bạn
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
           # Thêm các biến môi trường khác nếu cần thiết
