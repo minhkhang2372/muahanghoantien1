@@ -7,7 +7,7 @@ from telegram.ext import Application, CommandHandler
 
 # Token của bot Telegram
 TOKEN = "${{ secrets.QUAY_XU_BOT }}"
-
+#r
 
 # Định nghĩa hàm lấy dữ liệu từ API Shopee
 def get_api_data(current_time_millis):
