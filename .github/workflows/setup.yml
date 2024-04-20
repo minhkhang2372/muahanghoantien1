@@ -29,25 +29,25 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           # Thêm các biến môi trường khác nếu cần thiết
 
-  build_bot2:
-    runs-on: ubuntu-latest
+build_bot2:
+  runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+  steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
 
-      - name: Install Dependencies for Bot 2
-        run: |
-          pip install python-telegram-bot requests
+    - name: Install Dependencies for Bot 2
+      run: |
+        pip install python-telegram-bot requests pytz
 
-      - name: Run Telegram Bot 2
-        run: |
-          python quayxu.py  # Thay 'bot2.py' bằng tên file của bot 2 của bạn
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
-          # Thêm các biến môi trường khác nếu cần thiết
+    - name: Run Telegram Bot 2
+      run: |
+        python quayxu.py  # Thay 'bot2.py' bằng tên file của bot 2 của bạn
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
+        # Thêm các biến môi trường khác nếu cần thiết
