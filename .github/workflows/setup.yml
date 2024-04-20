@@ -45,6 +45,10 @@ jobs:
         run: |
           pip install python-telegram-bot requests pytz
 
+      - name: Install pytz
+        run: |
+          pip install pytz
+
       - name: Run Telegram Bot 2
         run: |
           python quayxu.py  # Thay 'quayxu.py' bằng tên file của bot 2 của bạn
