@@ -1,19 +1,26 @@
-version: 1
-disable_existing_loggers: False
-formatters:
-  simple:
-    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
-handlers:
-  console:
-    class: logging.StreamHandler
-    level: INFO
-    formatter: simple
-loggers:
-  telegram:
-    level: ERROR
-    handlers:
-      - console
-root:
-  level: INFO
-  handlers:
-    - console
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout mã nguồn
+        uses: actions/checkout@v2
+
+      - name: Thiết lập Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x' # Chỉ định phiên bản Python bạn đang sử dụng
+
+      - name: Cài đặt các phụ thuộc
+        run: pip install -r requirements.txt
+
+      - name: Chạy script Python
+        run: python lsg.py
