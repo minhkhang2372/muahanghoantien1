@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: '3.x' # Chỉ định phiên bản Python bạn đang sử dụng
 
+      - name: Cài đặt gói PyYAML
+        run: pip install pyyaml
+
       - name: Cài đặt các phụ thuộc
         run: pip install -r requirements.txt
 
