@@ -1,6 +1,12 @@
 from telegram import Update
 from telegram.ext import Application, ContextTypes, CommandHandler
 import requests
+import yaml
+
+# Load bot token from bot_config.yml
+with open("bot_config.yml", "r") as f:
+    config = yaml.safe_load(f)
+bot_token = config.get("bot_token")
 
 # URL của API để lấy danh sách sản phẩm theo từ khóa
 api_url_commission_keyword = "https://api.chietkhau.pro/api/v1/shopee/get-product-by-keyword"
@@ -39,7 +45,7 @@ async def handle_shopee_command(update: Update, context: ContextTypes.DEFAULT_TY
 
     # Kiểm tra xem người dùng đã cung cấp từ khóa sản phẩm chưa
     if len(args) == 0:
-        await update.message.reply_text("Vui lòng cung cấp từ khóa sản phẩm sau lệnh /shopee.")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Vui lòng cung cấp từ khóa sản phẩm sau lệnh /shopee.")
         return
     
     # Lấy từ khóa từ tin nhắn
@@ -50,7 +56,7 @@ async def handle_shopee_command(update: Update, context: ContextTypes.DEFAULT_TY
 
     # Kiểm tra xem API trả về dữ liệu hay không
     if product_data.get("status") != "success":
-        await update.message.reply_text("Không lấy được dữ liệu sản phẩm!")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Không lấy được dữ liệu sản phẩm!")
         return
     
     # Lọc 5 sản phẩm đầu tiên từ danh sách
@@ -80,8 +86,8 @@ async def handle_shopee_command(update: Update, context: ContextTypes.DEFAULT_TY
             f"Powered By NhaNgheoSanSale\n"
         )
 
-        # Gửi phản hồi đến người dùng
-        await update.message.reply_text(response_text)
+        # Gửi phản hồi đến người dùng sử dụng phương thức send_message
+        await context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
 
 # Hàm xử lý lệnh /check của người dùng (tìm kiếm bằng liên kết sản phẩm)
 async def handle_check_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -89,7 +95,7 @@ async def handle_check_command(update: Update, context: ContextTypes.DEFAULT_TYP
 
     # Kiểm tra xem người dùng đã cung cấp liên kết sản phẩm chưa
     if len(args) == 0:
-        await update.message.reply_text("Vui lòng cung cấp liên kết sản phẩm sau lệnh /check.")
+        await context.bot.send_message(chat_id=update.effective_chat.id, text="Vui lòng cung cấp liên kết sản phẩm sau lệnh /check.")
         return
     
     # Lấy liên kết sản phẩm từ tin nhắn
@@ -117,16 +123,13 @@ async def handle_check_command(update: Update, context: ContextTypes.DEFAULT_TYP
             f"Powered By NhaNgheoSanSale\n"
         )
 
-    # Gửi phản hồi kết hợp đến người dùng
-    await update.message.reply_text(response_text)
+    # Gửi phản hồi kết hợp đến người dùng sử dụng phương thức send_message
+    await context.bot.send_message(chat_id=update.effective_chat.id, text=response_text)
 
-# Hàm chínha
+# Hàm chính
 def main():
-    # Mã thông báo của bot Telegram (lấy từ BotFather)
-    token = "6816103693:AAHOh2IABfq6NcTCk4otuIjW7WFUpm3AW0k"
-
     # Tạo ứng dụng bot
-    application = Application.builder().token(token).build()
+    application = Application.builder().token(bot_token).build()
 
     # Thêm trình xử lý lệnh /shopee
     application.add_handler(CommandHandler("shopee", handle_shopee_command))
