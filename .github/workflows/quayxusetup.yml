@@ -1,8 +1,9 @@
 name: Run Telegram Bot
 
 on:
-  schedule:
-    - cron: '0 */1 * * *'  # Chạy mỗi giờ
+  push:
+    branches:
+      - main  # Thay 'main' bằng tên của nhánh bạn muốn trigger
 
 jobs:
   build:
@@ -19,11 +20,14 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install python-telegram-bot requests
+          pip install python-telegram-bot requests pytz
 
       - name: Run Telegram Bot
         run: |
-          python quayxu.py  # Thay 'quayxu.py' bằng tên file của bạn
+          while true; do
+            python quayxu.py  # Thay 'quayxu.py' bằng tên file của bạn
+            sleep 10  # Thời gian nghỉ giữa các lần chạy, có thể điều chỉnh
+          done
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
           # Thêm các biến môi trường khác nếu cần thiết
