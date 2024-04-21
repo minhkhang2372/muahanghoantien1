@@ -1,4 +1,4 @@
-name: Run Telegram Bots
+name: Run Telegram Bot
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
       - main  # Thay 'main' bằng tên nhánh chính của bạn nếu cần
 
 jobs:
-  build_bot1:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -18,40 +18,13 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Install Dependencies for Bot 1
+      - name: Install Dependencies
         run: |
           pip install python-telegram-bot requests
 
-      - name: Run Telegram Bot 1
+      - name: Run Telegram Bot
         run: |
-          python main.py  # Thay 'main.py' bằng tên file của bot 1 của bạn
+          python main.py  # Thay 'main.py' bằng tên file của bạn
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          # Thêm các biến môi trường khác nếu cần thiết
-
-  build_bot2:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
-
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
-
-      - name: Install Dependencies for Bot 2
-        run: |
-          pip install python-telegram-bot requests pytz
-
-      - name: Install pytz
-        run: |
-          pip install pytz
-
-      - name: Run Telegram Bot 2
-        run: |
-          python quayxu.py  # Thay 'quayxu.py' bằng tên file của bot 2 của bạn
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
           # Thêm các biến môi trường khác nếu cần thiết
