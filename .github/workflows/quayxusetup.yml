@@ -1,9 +1,8 @@
 name: Run Telegram Bot
 
 on:
-  push:
-    branches:
-      - main  # Thay 'main' bằng tên nhánh chính của bạn nếu cần
+  schedule:
+    - cron: '0 */1 * * *'  # Chạy mỗi giờ
 
 jobs:
   build:
@@ -24,7 +23,7 @@ jobs:
 
       - name: Run Telegram Bot
         run: |
-          python quayxu.py  # Thay 'main.py' bằng tên file của bạn
+          python quayxu.py  # Thay 'quayxu.py' bằng tên file của bạn
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.QUAY_XU_BOT }}
           # Thêm các biến môi trường khác nếu cần thiết
